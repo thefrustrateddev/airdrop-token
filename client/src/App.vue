@@ -82,6 +82,8 @@ export default {
     },
 
     async bno(){
+      // for onlyOwner from is required
+      // if not function happening inside use call if not use send
       let b = await this.FContractInstance.methods.bno(this.accounts[0]).call({from:this.accounts[0]});
       console.log("balance check",b);
     }
