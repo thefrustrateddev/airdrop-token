@@ -5,6 +5,7 @@
     <button @click="checkBalance">Check Balance</button>
     <button @click="airdrop">Airdrop</button>
     <button @click="owner">Owner</button>
+    <button @click="bno">bno</button>
   </div>
 </template>
 
@@ -77,6 +78,11 @@ export default {
 
     async owner(){
       let b = await this.FContractInstance.methods.owner().call();
+      console.log("balance check",b);
+    },
+
+    async bno(){
+      let b = await this.FContractInstance.methods.bno(this.accounts[0]).call({from:this.accounts[0]});
       console.log("balance check",b);
     }
   }
