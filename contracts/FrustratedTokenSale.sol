@@ -20,6 +20,7 @@ contract FrustratedTokenSale is Crowdsale{
         kyc=_kyc;
     }
 
+    
     function _preValidatePurchase(address _beneficiary, uint256 _weiAmount)internal view override{
         super._preValidatePurchase(_beneficiary,_weiAmount);
         require(kyc.isKycCompleted(msg.sender),"Please complete kyc first");

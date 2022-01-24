@@ -3,6 +3,8 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <button @click="checkBalance">Check Balance</button>
+    <button @click="airdrop">Airdrop</button>
+    <button @click="owner">Owner</button>
   </div>
 </template>
 
@@ -55,9 +57,27 @@ export default {
   },
   methods:{
     async checkBalance(){
-      let a = await this.FContractInstance.methods.totalSupply().call({from:this.accounts[0]});
-      let b = await this.FContractInstance.methods.checkBalance().call({from:this.accounts[0]});
+      let a = await this.FContractInstance.methods.balanceOf(this.accounts[0]).call();
+      let b = await this.FContractInstance.methods.totalSupply().call();
+      // let c = await this.FContractInstance.methods.bno().call({from:this.accounts[0]});
       console.log("balance check",this.FContractInstance,a,b);
+    },
+
+    async airdrop(){
+
+      // let a = await this.FContractInstance.methods.totalSupply().call({from:this.accounts[0]});
+      let b = await this.FContractInstance.methods.airdrop().send({from:this.accounts[0]});
+      console.log("airdrop check",b);
+    },
+
+    async balanceOf(){
+      let b = await this.FContractInstance.methods.balanceOf(this.accounts[0]).call();
+      console.log("balance check",b);
+    },
+
+    async owner(){
+      let b = await this.FContractInstance.methods.owner().call();
+      console.log("balance check",b);
     }
   }
 };
