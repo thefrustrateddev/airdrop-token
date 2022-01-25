@@ -1,16 +1,23 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <br/>
     <button @click="checkBalance">Check Balance</button>
+    <br/>
     <button @click="airdrop">Airdrop</button>
+    <br/>
     <button @click="owner">Owner</button>
+    <br/>
+    <button @click="tranferContract">tranferContract</button>
+    <br/>
+    <button @click="checkContract">checkContract</button>
+    <br/>
     <button @click="bno">bno</button>
+    <br/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
 import getWeb3 from './utils/getWeb3.js';
 import FToken from './contracts/FrustratedToken.json';
 
@@ -18,7 +25,6 @@ import FToken from './contracts/FrustratedToken.json';
 export default {
   name: 'App',
   components: {
-    HelloWorld,
   },
   data(){
     return {
@@ -57,6 +63,11 @@ export default {
 
   },
   methods:{
+    async checkContract(){
+
+      let a = await this.FContractInstance.methods.balanceOf('0xf2ffc755D694920c43b7DEEA00564D1CCB42Ab31').call();
+      console.log("contract paisa",a);
+    },
     async checkBalance(){
       let a = await this.FContractInstance.methods.balanceOf(this.accounts[0]).call();
       let b = await this.FContractInstance.methods.totalSupply().call();
@@ -67,7 +78,8 @@ export default {
     async airdrop(){
 
       // let a = await this.FContractInstance.methods.totalSupply().call({from:this.accounts[0]});
-      let b = await this.FContractInstance.methods.airdrop().send({from:this.accounts[0]});
+      // let b = await this.FContractInstance.methods.airdrop().send({from:this.accounts[0]});
+      let b = await this.FContractInstance.methods.getFunds(this.accounts[0],10).send({from:this.accounts[0]});
       console.log("airdrop check",b);
     },
 
@@ -81,9 +93,14 @@ export default {
       console.log("balance check",b);
     },
 
+    async tranferContract(){
+      let b = await this.FContractInstance.methods.transFn().send({from:this.accounts[0]});
+      console.log("transfer to contarct",b);
+    },
     async bno(){
       // for onlyOwner from is required
       // if not function happening inside use call if not use send
+      console.log(this.accounts[0])
       let b = await this.FContractInstance.methods.bno(this.accounts[0]).call({from:this.accounts[0]});
       console.log("balance check",b);
     }

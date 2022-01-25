@@ -4,7 +4,7 @@ var FrustratedTokenSale = artifacts.require("./FrustratedTokenSale.sol");
 
 module.exports = async function(deployer) {
     let addr = await web3.eth.getAccounts();
-    await deployer.deploy(FrustratedToken,10000000000);
+    await deployer.deploy(FrustratedToken,1000);
     // await deployer.deploy(KYCWhiteList);
     // await deployer.deploy(FrustratedToken,1,addr[0],FrustratedTokenSale.address,KYCWhiteList.address);
     // let instance = await FrustratedToken.deployed();

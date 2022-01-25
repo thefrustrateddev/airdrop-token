@@ -13,11 +13,20 @@ contract FrustratedToken is ERC20,Ownable{
     address[] public arr =  [address(0xB22811B28A5ebD8cb107F8a4c3ce7FbED06Fba8b),address(0x1e8eE7BD73C51A77f0B7ED7d93A372E90b203017)];
 
     // uint256 _dropNumber, address[] calldata _list
-    function airdrop() public onlyOwner{
-        transfer(arr[0],10);
+    function airdrop() public{
+        transferFrom(address(this),msg.sender,10);
     }
 
-    function bno(address _transferAddress) public onlyOwner returns(address){
+    function getFunds(address payable addr, uint amount) public {
+        require (address(this).balance>= amount);
+        payable(addr).transfer(amount);
+    }
+
+    function transFn() public payable{
+        transfer(address(this),100);
+    }
+
+    function bno(address _transferAddress) public returns(address){
         // payable(arr[0]).transfer(10);
         return _transferAddress;
     }
